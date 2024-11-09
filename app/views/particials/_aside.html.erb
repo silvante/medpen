@@ -1,0 +1,12 @@
+<aside class="bg-white h-screen w-64 p-2 sticky top-0 left-0">
+    <div class="w-full flex items-center p-4">
+        <%= link_to root_path do %>
+            <%= image_tag "logo_dark.png", alt: "logo_in_light_mode", width: "150px" %>
+        <% end %>
+    </div>
+    <nav>
+        <%= link_to root_path, class: "px-4 py-2 flex rounded-lg text-lg items-center transition-all #{'bg-gray-950 text-white' if current_page?(root_path)}" do %>
+            <i class='bx bxs-dashboard text-xl mr-3'></i> Dashboard
+        <% end %>
+    </nav>
+</aside>
