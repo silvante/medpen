@@ -13,7 +13,7 @@ class ClientsController < ApplicationController
   # GET /clients/new
   def new
     @client = Client.new
-    @types = Type.all.pluck(:title, :id)
+    @types = Type.pluck(:title, :id, :cost)
   end
 
   # GET /clients/1/edit
@@ -24,15 +24,18 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
 
-    respond_to do |format|
-      if @client.save
-        format.html { redirect_to @client, notice: "Client was successfully created." }
-        format.json { render :show, status: :created, location: @client }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
-      end
+  # Filter out any blank values and assign the Type IDs to `type_ids` for association
+  if client_params[:visiting_for].present?
+    @client.type_ids = client_params[:visiting_for].reject(&:blank?)
+  end
+
+  respond_to do |format|
+    if @client.save
+      format.html { redirect_to @client, notice: "Client was successfully created." }
+    else
+      format.html { render :new }
     end
+  end
   end
 
   # PATCH/PUT /clients/1 or /clients/1.json
@@ -66,6 +69,6 @@ class ClientsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def client_params
-      params.require(:client).permit(:name, :surname, :born_id, :from, :visiting_for, :paid, :diagnos, :date_of_visit)
+      params.require(:client).permit(:name, :surname, :born_id, :from, :paid, :diagnos, :date_of_visit, visiting_for: [])
     end
 end

@@ -1,4 +1,9 @@
 <div class="w-full">
+  <style>
+    th {
+      text-align: left;
+    }
+  </style>
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
@@ -10,12 +15,32 @@
     <%= link_to "New client", new_client_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="clients" class="min-w-full">
-    <% @clients.each do |client| %>
-      <%= render client %>
-      <p>
-        <%= link_to "Show this client", client, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
-    <% end %>
+  <div id="clients" class="min-w-full py-5">
+    
+    <table class="w-full rounded-xl overflow-hidden">
+      <thead class="bg-gray-950 text-white">
+        <tr>
+          <th class="py-4 px-4">No:</th>
+          <th class="py-4 px-4">full name:</th>
+          <th class="py-4 px-4">born in:</th>
+          <th class="py-4 px-4">from:</th>
+          <th class="py-4 px-4">visiting for:</th>
+          <th class="py-4 px-4">paid:</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white text-gray-950">
+        <% @clients.each do |client| %>
+          <tr>
+            <th class="py-4 px-4"><%= client.id %></th>
+            <th class="py-4 px-4"><%= client.name + " " + client.surname%></th>
+            <th class="py-4 px-4"><%= client.born_id %></th>
+            <th class="py-4 px-4"><%= client.from %></th>
+            <th class="py-4 px-4"><%= client.visiting_for %></th>
+            <th class="py-4 px-4"><%= client.paid %> UZS</th>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
   </div>
 </div>
