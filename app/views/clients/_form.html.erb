@@ -33,7 +33,12 @@
 
   <div class="my-5">
     <%= form.label :visiting_for %>
-    <%= form.text_area :visiting_for, rows: 4, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :visiting_for, options_for_select(@types), {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <% if @client.visiting_for %>
+      <%= @client.visiting_for.each do |type|%>
+        <%= type %>
+      <% end %>
+    <% end%>
   </div>
 
   <div class="my-5">

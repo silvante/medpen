@@ -8,5 +8,8 @@
         <%= link_to root_path, class: "px-4 py-2 flex rounded-lg text-lg items-center transition-all #{'bg-gray-950 text-white' if current_page?(root_path)}" do %>
             <i class='bx bxs-dashboard text-xl mr-3'></i> Dashboard
         <% end %>
+        <%= link_to types_path, class: "px-4 py-2 flex rounded-lg text-lg items-center transition-all #{'bg-gray-950 text-white' if current_page?(types_path)}" do %>
+            <i class='bx bx-hive text-xl mr-3'></i> Types
+        <% end %>
     </nav>
 </aside>

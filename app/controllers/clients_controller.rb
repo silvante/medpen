@@ -13,6 +13,7 @@ class ClientsController < ApplicationController
   # GET /clients/new
   def new
     @client = Client.new
+    @types = Type.all.pluck(:title, :id)
   end
 
   # GET /clients/1/edit
