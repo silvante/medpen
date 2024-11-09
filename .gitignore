@@ -28,3 +28,6 @@
 # Ignore other unneeded files
 /public/assets
 /public/packs
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
