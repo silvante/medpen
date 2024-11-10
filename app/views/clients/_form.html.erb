@@ -33,7 +33,7 @@
 
   <div class="my-5">
     <%= form.label :visiting_for %>
-    <%= form.collection_select :visiting_for, Type.all, :id, :title, {}, multiple: true %>
+    <%= form.select :visiting_for, Type.all.collect { |type| [type.title, type.id] }, {}, { multiple: true } %>
   </div>
 
   <div class="my-5">

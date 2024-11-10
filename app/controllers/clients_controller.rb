@@ -13,7 +13,7 @@ class ClientsController < ApplicationController
   # GET /clients/new
   def new
     @client = Client.new
-    @types = Type.pluck(:title, :id, :cost)
+    @types = Type.pluck(:title, :id)
   end
 
   # GET /clients/1/edit
@@ -22,12 +22,15 @@ class ClientsController < ApplicationController
 
   # POST /clients or /clients.json
   def create
+    client_params[:visiting_for].reject!(&:blank?) if client_params[:visiting_for].is_a?(Array)
     @client = Client.new(client_params)
 
   # Filter out any blank values and assign the Type IDs to `type_ids` for association
-  if client_params[:visiting_for].present?
-    @client.type_ids = client_params[:visiting_for].reject(&:blank?)
-  end
+  # if client_params[:visiting_for].present?
+  #   @client.type_ids = client_params[:visiting_for].reject(&:blank?)
+  # end
+
+  # @client.visiting_for = client_params[:visiting_for].map(&:to_i) if client_params[:visiting_for].present?
 
   respond_to do |format|
     if @client.save
@@ -59,6 +62,10 @@ class ClientsController < ApplicationController
       format.html { redirect_to clients_path, status: :see_other, notice: "Client was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def this_day
+    @clients = Client.where(date_of_visit: Time.zone.today.all_day)
   end
 
   private

@@ -12,5 +12,7 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
-  root "clients#index"
+  root "clients#this_day"
+
+  # get "/today", to: "controller#method"
 end
